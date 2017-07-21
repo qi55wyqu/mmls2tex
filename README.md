@@ -38,3 +38,4 @@ Units are in 512-byte sectors
 007:  -------   0018872320   0018874367   0000002048   Unallocated
 ```
 Output:
+![alt text](https://raw.githubusercontent.com/qi55wyqu/mmls2tex/master/partitionDiagram.png)

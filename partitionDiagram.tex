@@ -1,0 +1,75 @@
+\documentclass[margin=5mm]{standalone}
+\usepackage{tikz, calc, xcolor, tikz-3dplot}
+\usetikzlibrary{decorations.pathreplacing, arrows}
+\begin{document}%
+\newcommand{\partition}[5]{% no name
+\draw[draw=black,fill=#4,fill opacity=#5] (#1,0,0) -- ++(0,1,0) -- ++(0,0,-0.33) -- ++(0,-1,0) -- cycle;% left
+\draw[draw=black,fill=#3,fill opacity=#5] (#1,0,0) -- ++(0,0,-0.33) -- ++ (#2,0,0) -- ++(0,0,0.33) -- cycle;% bottom
+\draw[draw=black,fill=#3,fill opacity=#5] (#1,0,-0.33) -- ++(0,1,0) -- ++(#2,0,0) -- ++(0,-1,0) -- cycle;% back
+\draw[draw=black,fill=#3,fill opacity=#5] (#1,0,0) -- ++(#2,0,0) -- ++(0,1,0) -- ++(-#2,0,0) -- cycle;% front
+\draw[draw=black,fill=#3,fill opacity=#5] (#1+#2,0,0) -- ++(0,0,-0.33) -- ++(0,1,0) -- ++(0,0,0.33) -- cycle;% right
+\draw[draw=black,fill=#4,fill opacity=#5] (#1,1,0) -- ++(#2,0,0) -- ++(0,0,-0.33) -- ++(-#2,0,0) -- cycle;% top
+}%
+%
+\newcommand{\partitionBraceAbove}[6]{% with brace above
+\partition{#1}{#2}{#3}{#4}{#5}%
+\draw[decorate,decoration={brace,amplitude=8},align=center] (#1,1,-0.33) -- ++ (#2,0,0) node [midway,above,yshift=5] {#6};% Brace with Text above
+}%
+%
+\newcommand{\partitionBraceBelow}[6]{% with brace below
+\partition{#1}{#2}{#3}{#4}{#5}%
+\draw[decorate,decoration={brace,amplitude=8,mirror},align=center] (#1,0,0) -- ++ (#2,0,0) node [midway,below,yshift=-8] {#6};% Brace with Text below
+}%
+%
+\newcommand{\partitionArrowAbove}[7]{% with arrow above
+\partition{#1}{#2}{#3}{#4}{#5}%
+\node[inner sep=2.5,align=center,xshift=#7] (Name) at (#1+0.5*#2,1.75,-0.33) {#6};% description
+\draw[->, line width=0.75pt] (Name) -- (#1+0.5*#2,1.05,-0.33);% arrow
+}%
+%
+\newcommand{\partitionArrowBelow}[7]{% with arrow below
+\partition{#1}{#2}{#3}{#4}{#5}%
+\node[inner sep=2.5,align=center,xshift=#7] (Name) at (#1+0.5*#2,-0.75,0) {#6};% description
+\draw[->, line width=0.75pt] (Name) -- (#1+0.5*#2,-0.05,0);% arrow
+}%
+%
+\newcommand{\partitionTextFront}[6]{% text on front side
+\partition{#1}{#2}{#3}{#4}{#5}%
+\node[align=center] at (#1+0.5*#2,0.5,0) {#6};%
+}%
+%
+\colorlet{grey}{black!50}%
+\colorlet{lightGrey}{black!30}%
+\colorlet{myBlue}{blue!60!green!80}%
+\colorlet{myLightBlue}{blue!60!green!60}%
+\colorlet{myOrange}{orange!60!red!80}%
+\colorlet{myLightOrange}{orange!60!red!60}%
+\colorlet{myRed}{black!40!red!80}%
+\colorlet{myLightRed}{black!40!red!60}%
+\colorlet{myGreen}{black!60!green!70}%
+\colorlet{myLightGreen}{black!60!green!50}%
+\colorlet{myBlueB}{black!50!blue!80}%
+\colorlet{myLightBlueB}{black!50!blue!60}%
+%\tdplotsetmaincoords{0}{0}% 2D
+\begin{tikzpicture}[x=1cm, y=1cm, z=-1cm]%, tdplot_main_coords]
+\newcommand{\lengthA}{0.1}
+\newcommand{\lengthB}{5}
+\newcommand{\lengthC}{2}
+\newcommand{\lengthD}{0.1}
+\newcommand{\lengthE}{1}
+\newcommand{\lengthF}{2}
+
+\partitionArrowBelow{0}{\lengthA}{grey}{lightGrey}{1}{Unallocated \\ (1.0 MB)}{0}
+
+\partitionBraceAbove{\lengthA}{\lengthB}{myBlue}{myLightBlue}{1}{Partition 1 \\ (500 GB)}
+
+\partitionBraceBelow{\lengthA-1+\lengthB}{\lengthC}{myOrange}{myLightOrange}{0.75}{Partition 2 \\ (200 GB)}
+
+\partitionArrowBelow{\lengthA-1+\lengthB+\lengthC}{\lengthD}{grey}{lightGrey}{1}{Unallocated \\ (1.0 MB)}{1.5cm}
+
+\partitionBraceAbove{\lengthA-1+\lengthB+\lengthC+\lengthD}{\lengthE}{myRed}{myLightRed}{1}{Partition 3 \\ (100 GB)}
+
+\partitionTextFront{\lengthA-1+\lengthB+\lengthC+\lengthD+\lengthE}{\lengthF}{myGreen}{myLightGreen}{1}{Partition 4 \\ (200 GB)}
+
+\end{tikzpicture}
+\end{document}
