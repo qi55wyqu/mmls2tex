@@ -74,9 +74,12 @@ latex = '\documentclass[margin=5mm]{standalone}\n' \
     + '\usetikzlibrary{decorations.pathreplacing, arrows}\n' \
     + '\\begin{document}' + '%\n' \
     + '\\newcommand{\partition}[5]{% no name\n' \
-    + '\draw[draw=black,fill=#3,opacity=#5] (#1,0,0) -- ++(#2,0,0) -- ++(0,1,0) -- ++(-#2,0,0) -- cycle;% front\n' \
-    + '\draw[draw=black,fill=#3,opacity=#5] (#1+#2,0,0) -- ++(0,0,-0.33) -- ++(0,1,0) -- ++(0,0,0.33) -- cycle;% right\n' \
-    + '\draw[draw=black,fill=#4,opacity=#5] (#1,1,0) -- ++(#2,0,0) -- ++(0,0,-0.33) -- ++(-#2,0,0) -- cycle;% top\n' + '}%\n'+ '%\n' \
+    + '\draw[draw=black,fill=#4,fill opacity=#5] (#1,0,0) -- ++(0,1,0) -- ++(0,0,-0.33) -- ++(0,-1,0) -- cycle;% left\n' \
+    + '\draw[draw=black,fill=#3,fill opacity=#5] (#1,0,0) -- ++(0,0,-0.33) -- ++ (#2,0,0) -- ++(0,0,0.33) -- cycle;% bottom\n' \
+    + '\draw[draw=black,fill=#3,fill opacity=#5] (#1,0,-0.33) -- ++(0,1,0) -- ++(#2,0,0) -- ++(0,-1,0) -- cycle;% back\n' \
+    + '\draw[draw=black,fill=#3,fill opacity=#5] (#1,0,0) -- ++(#2,0,0) -- ++(0,1,0) -- ++(-#2,0,0) -- cycle;% front\n' \
+    + '\draw[draw=black,fill=#3,fill opacity=#5] (#1+#2,0,0) -- ++(0,0,-0.33) -- ++(0,1,0) -- ++(0,0,0.33) -- cycle;% right\n' \
+    + '\draw[draw=black,fill=#4,fill opacity=#5] (#1,1,0) -- ++(#2,0,0) -- ++(0,0,-0.33) -- ++(-#2,0,0) -- cycle;% top\n}%\n%\n' \
     + '\\newcommand{\partitionBraceAbove}[6]{% with brace above\n' \
     + '\partition{#1}{#2}{#3}{#4}{#5}%\n' \
     + '\draw[decorate,decoration={brace,amplitude=8},align=center] (#1,1,-0.33) -- ++ (#2,0,0) node [midway,above,yshift=5] {#6};% Brace with Text above\n' + '}%\n%\n' \
